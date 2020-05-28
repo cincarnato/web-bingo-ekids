@@ -17,33 +17,42 @@ export default new Vuex.Store({
         player: null
     },
     mutations: {
-        setBingo(state,bingo){
+        setBingo(state, bingo) {
             state.bingo = bingo
         },
-        setPlayer(state,player){
+        setPlayer(state, player) {
             state.player = player
         },
-        addBingoItem(state,item){
-            if(state.bingo.items == undefined){
+        addBingoItem(state, item) {
+            if (state.bingo.items == undefined) {
                 state.bingo.items = []
             }
-            if(item){
+            if (item) {
                 state.bingo.items.push(item)
+            }
+        },
+        refreshPlayerBingo(state, bingo) {
+            state.player.bingo = bingo
+        },
+        addPlayerItem(state, item) {
+            if (state.player.card == undefined) {
+                state.player.card = []
+            }
+            if (item) {
+                state.player.card.push(item)
             }
         }
     },
-    actions: {
-
-    },
-    getters:{
+    actions: {},
+    getters: {
         bingo(state) {
             return state.bingo
         },
-        player(state){
+        player(state) {
             return state.player
         },
-        bingoItems(state){
-          return state.bingo.items
+        bingoItems(state) {
+            return state.bingo.items
         }
     }
 })

@@ -6,6 +6,7 @@ mutation ($playerName:String!, $code: String!){
             id
             name
             code
+            cardQtyItems
             items{
                 id
                 name

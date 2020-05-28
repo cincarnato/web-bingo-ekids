@@ -1,0 +1,8 @@
+mutation ($playerId:ID!,$itemId:ID!){
+    pickItem(playerId:$playerId, itemId: $itemId){
+        id
+        name
+        img
+        snd
+    }
+}

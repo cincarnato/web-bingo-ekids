@@ -23,6 +23,26 @@ class BingoProvider{
             variables: form
         })
     }
+
+    items() {
+        return apolloClient.query({
+            query: require('./gql/items.graphql')
+        })
+    }
+
+    bingo(id) {
+        return apolloClient.query({
+            query: require('./gql/bingo.graphql'),
+            variables: {id}
+        })
+    }
+
+    pickItem(playerId, itemId) {
+        return apolloClient.mutate({
+            mutation: require('./gql/pickItem.graphql'),
+            variables: {playerId, itemId}
+        })
+    }
 }
 
 export default new BingoProvider

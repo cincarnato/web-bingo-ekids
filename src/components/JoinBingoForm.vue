@@ -45,7 +45,7 @@
         <v-divider></v-divider>
 
         <v-card-actions>
-            <v-btn @click="save" text color="blue darken-4">Create</v-btn>
+            <v-btn @click="save" text color="blue darken-4">Join</v-btn>
         </v-card-actions>
 
     </v-card>

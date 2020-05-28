@@ -57,7 +57,7 @@
         },
         mounted() {
             if(this.$store.state.bingo){
-                this.$router.push({name:'bingo-admin'});
+                this.$router.push({name:'bingo'});
             }
         },
         methods: {
@@ -68,7 +68,7 @@
                         .then(
                             response => {
                                 this.$store.commit('setBingo',response.data.createBingo)
-                                this.$router.push({name:'bingo-admin'});
+                                this.$router.push({name:'bingo'});
                             }
                         )
                         .catch(

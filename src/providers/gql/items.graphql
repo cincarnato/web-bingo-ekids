@@ -1,0 +1,8 @@
+query items{
+    items{
+        id
+        name
+        img
+        snd
+    }
+}

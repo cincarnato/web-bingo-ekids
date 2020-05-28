@@ -1,5 +1,5 @@
-mutation ($name:String!){
-    createBingo(name:$name){
+query bingo($id: ID!){
+    bingo(id:$id){
         id
         name
         code
