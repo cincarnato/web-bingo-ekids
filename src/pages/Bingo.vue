@@ -1,7 +1,6 @@
 <template>
     <v-container>
         <h2>Bingo Game</h2>
-        <br>
         <h4>Your game code is: <b class="purple--text">{{bingo.code}}</b></h4>
         <p>Share this code with the children to join your game</p>
 
@@ -11,11 +10,8 @@
         <v-row>
             <v-col cols="12" sm="4">
                 <v-card>
-                    <v-card-title>Items</v-card-title>
                     <v-card-text>
-
                         <bingo-items :items="bingoItems"></bingo-items>
-
                     </v-card-text>
                 </v-card>
             </v-col>
@@ -67,10 +63,16 @@
                         }
                     )
             },
+            play(item){
+                let snd = process.env.VUE_APP_APIHOST + item.snd
+                let audio = new Audio(snd);
+                audio.play();
+            },
             roll() {
                 BingoProvider.raffleItem(this.$store.state.bingo.id)
                     .then(
                         response => {
+                            this.play(response.data.raffleItem)
                             this.$store.commit('addBingoItem', response.data.raffleItem)
                             this.loadPlayers()
                         }
