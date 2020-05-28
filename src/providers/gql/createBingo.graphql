@@ -1,0 +1,7 @@
+mutation ($name:String!){
+    createBingo(name:$name){
+        id
+        name
+        code
+    }
+}
