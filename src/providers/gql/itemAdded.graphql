@@ -1,0 +1,8 @@
+subscription itemAdded($bingoId: ID!) {
+    itemAdded(bingoId:$bingoId) {
+        id
+        name
+        img
+        snd
+     }
+}

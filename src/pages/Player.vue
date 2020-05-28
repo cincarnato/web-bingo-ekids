@@ -8,7 +8,7 @@
                     <your-bingo-card ></your-bingo-card>
                 </v-col>
                 <v-col cols="12" sm="3">
-                    <bingo-items :items="player.bingo.items"></bingo-items>
+                    <bingo-items :items="playerBingoItems"></bingo-items>
                 </v-col>
             </v-row>
         </template>
@@ -32,7 +32,7 @@
         name: "Player",
         components: {BingoItems, YourBingoCard, PickCardItems},
         computed: {
-            ...mapGetters(["player"]),
+            ...mapGetters(["player", "playerBingoItems"]),
             itemsReady(){
                 console.log(this.player.bingo.cardQtyItems)
                 console.log(this.player.card.length)
@@ -43,12 +43,20 @@
                 }
             }
         },
+        mounted() {
+            this.subscriptionBingo()
+        },
         methods: {
             endGame() {
                 if (confirm("Esta seguro de terminar el juego")) {
                     this.$store.commit("setPlayer", null)
                     this.$router.push({name: 'home'})
                 }
+            },
+            subscriptionBingo() {
+                BingoProvider.itemAdded(this.$store.state.player.bingo.id).subscribe(e => {
+                    this.$store.commit('addPlayerBingoItem', e.data.itemAdded)
+                })
             },
             refreshBingo() {
                 BingoProvider.bingo(this.$store.state.player.bingo.id)

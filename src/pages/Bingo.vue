@@ -9,19 +9,25 @@
         <br>
 
         <v-row>
-            <v-col>
+            <v-col cols="12" sm="4">
                 <v-card>
                     <v-card-title>Items</v-card-title>
                     <v-card-text>
 
-                        <div v-for="(item,index) in bingoItems" :key="index">
-                            {{index}} - {{item.name}}
-                        </div>
+                        <bingo-items :items="bingoItems"></bingo-items>
 
                     </v-card-text>
                 </v-card>
             </v-col>
+
+            <v-col cols="12" sm="8">
+Players
+            </v-col>
         </v-row>
+
+        <br>
+        <v-divider></v-divider>
+        <br>
 
         <v-btn class="float-right" dark color="red" @click="endGame">End Game</v-btn>
     </v-container>
@@ -30,9 +36,11 @@
 <script>
     import BingoProvider from "../providers/BingoProvider";
     import {mapGetters} from "vuex"
+    import BingoItems from "../components/BingoItems";
 
     export default {
         name: "BingoAdmin",
+        components: {BingoItems},
         computed: {
             ...mapGetters(["bingo", "bingoItems"])
         },

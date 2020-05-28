@@ -43,6 +43,15 @@ class BingoProvider{
             variables: {playerId, itemId}
         })
     }
+
+    itemAdded(bingoId){
+
+        return apolloClient.subscribe({
+            query: require('./gql/itemAdded.graphql'),
+            variables: {bingoId}
+        })
+
+    }
 }
 
 export default new BingoProvider

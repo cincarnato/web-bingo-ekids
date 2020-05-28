@@ -41,6 +41,14 @@ export default new Vuex.Store({
             if (item) {
                 state.player.card.push(item)
             }
+        },
+        addPlayerBingoItem(state, item) {
+            if (state.player.bingo.items == undefined) {
+                state.player.bingo.items = []
+            }
+            if (item) {
+                state.player.bingo.items.push(item)
+            }
         }
     },
     actions: {},
@@ -52,7 +60,12 @@ export default new Vuex.Store({
             return state.player
         },
         bingoItems(state) {
-            return state.bingo.items
+            let a = [...state.bingo.items, ...[]]
+            return a.reverse()
+        },
+        playerBingoItems(state){
+            let a = [...state.player.bingo.items, ...[]]
+            return a.reverse()
         }
     }
 })
