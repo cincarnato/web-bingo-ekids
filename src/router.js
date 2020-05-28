@@ -4,12 +4,14 @@ Vue.use(VueRouter)
 
 import Home from './pages/Home'
 import CreateBingo from './pages/CreateBingo'
-import BingoAdmin from './pages/BingoAdmin'
+import Bingo from './pages/Bingo'
+import Player from './pages/Player'
 
 const routes = [
     {name: "home", path: '/', component: Home},
     {name: "create-bingo", path: '/create-bingo', component: CreateBingo},
-    {name: "bingo-admin", path: '/bingo-admin', component: BingoAdmin},
+    {name: "bingo", path: '/bingo', component: Bingo},
+    {name: "player", path: '/player', component: Player},
 
 ]
 

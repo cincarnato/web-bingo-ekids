@@ -2,18 +2,17 @@
     <v-container>
         <v-row>
             <v-col>
-                <create-bingo-form></create-bingo-form>
+                <join-bingo-form></join-bingo-form>
             </v-col>
         </v-row>
     </v-container>
-
 </template>
 
 <script>
-    import CreateBingoForm from "../components/CreateBingoForm";
+    import JoinBingoForm from "../components/JoinBingoForm";
     export default {
-        name: "CreateBingo",
-        components: {CreateBingoForm}
+        name: "JoinBingo",
+        components: {JoinBingoForm}
     }
 </script>
 

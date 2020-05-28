@@ -1,5 +1,5 @@
 <template>
-    <v-card :to="{name:'create-bingo'}">
+    <v-card :to="{name:'join-bingo'}">
         <v-row class="ma-0" >
             <v-col cols="3" >
                 <v-icon size="72" color="blue darken-2">pets</v-icon>

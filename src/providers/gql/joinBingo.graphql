@@ -1,0 +1,23 @@
+mutation ($playerName:String!, $code: String!){
+    joinBingo(playerName:$playerName, code: $code){
+        id
+        name
+        bingo{
+            id
+            name
+            code
+            items{
+                id
+                name
+                img
+                snd
+            }
+        }
+        card{
+            id
+            name
+            img
+            snd
+        }
+    }
+}

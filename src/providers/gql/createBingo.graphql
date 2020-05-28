@@ -3,5 +3,11 @@ mutation ($name:String!){
         id
         name
         code
+        items{
+            id
+            name
+            img
+            snd
+        }
     }
 }

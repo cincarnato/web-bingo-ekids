@@ -9,6 +9,20 @@ class BingoProvider{
             variables: form
         })
     }
+
+    raffleItem(bingoId) {
+        return apolloClient.mutate({
+            mutation: require('./gql/raffleItem.graphql'),
+            variables: {bingoId}
+        })
+    }
+
+    joinBingo(form) {
+        return apolloClient.mutate({
+            mutation: require('./gql/joinBingo.graphql'),
+            variables: form
+        })
+    }
 }
 
 export default new BingoProvider

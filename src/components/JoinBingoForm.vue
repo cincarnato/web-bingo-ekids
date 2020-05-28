@@ -1,10 +1,10 @@
 <template>
     <v-card outlined>
         <v-card-title>
-            <div>Create Bingo</div>
+            <div>Join Bingo</div>
         </v-card-title>
         <v-card-subtitle>
-            Crear bingo
+            Unirse a un bingo
         </v-card-subtitle>
 
         <v-card-text>
@@ -13,15 +13,26 @@
                 <v-row>
                     <v-col cols="12" sm="6" md="3" lg="3">
                         <v-text-field
-                                id="title"
                                 prepend-icon="title"
-                                name="title"
-                                label="Name"
-                                placeholder="Nombre"
+                                label="Player Name"
+                                placeholder="Nombre del jugador"
                                 type="text"
-                                v-model="form.name"
+                                v-model="form.playerName"
                                 class="pa-3"
-                                hint="Define el nombre de tu Bingo"
+                                hint="Ingresa tu nombre"
+                                :rules="[rules.required]"
+                        />
+                    </v-col>
+
+                    <v-col cols="12" sm="6" md="3" lg="3">
+                        <v-text-field
+                                prepend-icon="title"
+                                label="Code"
+                                placeholder="Codigo"
+                                type="text"
+                                v-model="form.code"
+                                class="pa-3"
+                                hint="Ingresa el codigo de un bingo existente"
                                 :rules="[rules.required]"
                         />
                     </v-col>
@@ -44,11 +55,12 @@
     import BingoProvider from "../providers/BingoProvider";
 
     export default {
-        name: "CreateBingoForm",
+        name: "JoinBingoForm",
         data() {
             return {
                 form: {
-                    name: ''
+                    playerName: '',
+                    code: ''
                 },
                 rules: {
                     required: value => !!value || 'Requerido'
@@ -56,19 +68,19 @@
             }
         },
         mounted() {
-            if(this.$store.state.bingo){
-                this.$router.push({name:'bingo-admin'});
+            if(this.$store.state.player){
+                this.$router.push({name:'player'});
             }
         },
         methods: {
 
             save() {
                 if (this.$refs.bingoForm.validate()) {
-                    BingoProvider.createBingo(this.form)
+                    BingoProvider.joinBingo(this.form)
                         .then(
                             response => {
-                                this.$store.commit('setBingo',response.data.createBingo)
-                                this.$router.push({name:'bingo-admin'});
+                                this.$store.commit('setPlayer',response.data.joinBingo)
+                                this.$router.push({name:'player'});
                             }
                         )
                         .catch(

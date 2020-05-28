@@ -1,0 +1,8 @@
+mutation ($bingoId:ID!){
+    raffleItem(bingoId:$bingoId){
+        id
+        name
+        img
+        snd
+    }
+}
