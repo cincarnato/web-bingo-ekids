@@ -21,7 +21,8 @@
             </v-col>
 
             <v-col cols="12" sm="8">
-Players
+                <h3>Players</h3>
+                <bingo-players :players="bingoPlayers"></bingo-players>
             </v-col>
         </v-row>
 
@@ -37,12 +38,16 @@ Players
     import BingoProvider from "../providers/BingoProvider";
     import {mapGetters} from "vuex"
     import BingoItems from "../components/BingoItems";
+    import BingoPlayers from "../components/BingoPlayers";
 
     export default {
         name: "BingoAdmin",
-        components: {BingoItems},
+        components: {BingoPlayers, BingoItems},
         computed: {
-            ...mapGetters(["bingo", "bingoItems"])
+            ...mapGetters(["bingo", "bingoItems", "bingoPlayers"])
+        },
+        mounted() {
+            this.loadPlayers()
         },
         methods: {
             endGame() {
@@ -51,11 +56,23 @@ Players
                     this.$router.push({name: 'home'})
                 }
             },
+            loadPlayers(){
+                BingoProvider.playersByBingo(this.$store.state.bingo.id)
+                    .then(response => {
+                        this.$store.commit('setBingoPlayers', response.data.playersByBingo)
+                    })
+                    .catch(
+                        err => {
+                            console.error(err)
+                        }
+                    )
+            },
             roll() {
                 BingoProvider.raffleItem(this.$store.state.bingo.id)
                     .then(
                         response => {
                             this.$store.commit('addBingoItem', response.data.raffleItem)
+                            this.loadPlayers()
                         }
                     )
                     .catch(

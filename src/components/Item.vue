@@ -1,7 +1,7 @@
 <template>
     <v-card :color="color" class="pa-1" @click="$emit('click',item)">
-        <v-img contain height="100" :src="img"></v-img>
-        <v-card-text class="text-center py-0 my-0">
+        <v-img contain :height="imgHeight" :src="img"></v-img>
+        <v-card-text v-if="showText" class="text-center py-0 my-0">
             {{item.name}}
         </v-card-text>
     </v-card>
@@ -12,7 +12,9 @@
         name: "Item",
         props: {
             item: {type: Object},
-            hit: {type: Boolean, default: false}
+            hit: {type: Boolean, default: false},
+            showText: {type: Boolean, default: true},
+            imgHeight: {type: String, default:"100"}
         },
         computed:{
             img(){

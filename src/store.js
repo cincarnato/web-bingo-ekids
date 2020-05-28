@@ -14,11 +14,15 @@ export default new Vuex.Store({
     ],
     state: {
         bingo: null,
+        bingoPlayers: [],
         player: null
     },
     mutations: {
         setBingo(state, bingo) {
             state.bingo = bingo
+        },
+        setBingoPlayers(state, bingoPlayers) {
+            state.bingoPlayers = bingoPlayers
         },
         setPlayer(state, player) {
             state.player = player
@@ -58,6 +62,9 @@ export default new Vuex.Store({
         },
         player(state) {
             return state.player
+        },
+        bingoPlayers(state) {
+            return state.bingoPlayers
         },
         bingoItems(state) {
             let a = [...state.bingo.items, ...[]]

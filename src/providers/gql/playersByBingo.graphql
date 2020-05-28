@@ -1,0 +1,12 @@
+query playersByBingo($bingoId: ID!){
+    playersByBingo(bingoId:$bingoId){
+        id
+        name
+        card{
+            id
+            name
+            img
+            snd
+        }
+    }
+}

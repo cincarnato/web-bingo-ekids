@@ -37,6 +37,14 @@ class BingoProvider{
         })
     }
 
+    playersByBingo(bingoId) {
+        return apolloClient.query({
+            query: require('./gql/playersByBingo.graphql'),
+            variables: {bingoId},
+            fetchPolicy: "network-only"
+        })
+    }
+
     pickItem(playerId, itemId) {
         return apolloClient.mutate({
             mutation: require('./gql/pickItem.graphql'),
@@ -50,7 +58,6 @@ class BingoProvider{
             query: require('./gql/itemAdded.graphql'),
             variables: {bingoId}
         })
-
     }
 }
 
