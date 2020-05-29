@@ -16,12 +16,17 @@
             showText: {type: Boolean, default: true},
             imgHeight: {type: String, default:"80"}
         },
+        data(){
+          return {
+              confirm: false
+          }
+        },
         computed:{
             img(){
                 return process.env.VUE_APP_APIHOST + this.item.img
             },
             color(){
-                return this.hit?'yellow':'white'
+                return this.confirm?'green':this.hit?'yellow':'white'
             },
             snd(){
                 return process.env.VUE_APP_APIHOST + this.item.snd
@@ -36,6 +41,9 @@
             click(){
                 this.play()
                 this.$emit("click", this.item)
+                if(this.hit){
+                    this.confirm = true
+                }
             }
         }
     }
