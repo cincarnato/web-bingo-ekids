@@ -24,6 +24,20 @@
     export default {
         name: "YourBingoCard",
         components: {WinBingo, Item},
+        watch:{
+            win: function(val){
+                if(val){
+                    this.playBingo()
+                }
+            }
+        },
+        methods:{
+            playBingo(){
+                let snd = process.env.VUE_APP_APIHOST + "/media/assets/bingo.mp3"
+                let audio = new Audio(snd);
+                audio.play();
+            },
+        },
         computed: {
             ...mapGetters(["player", "playerCardLeft"]),
             win(){
@@ -32,6 +46,7 @@
                 }
                 return false
             },
+
             isHit(){
                 return item => {
                     return this.player.bingo.items.some(i => i.id == item.id)
