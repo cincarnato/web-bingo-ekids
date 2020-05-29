@@ -4,7 +4,7 @@
             <v-col cols="12" sm="4">
                 <v-card>
                     <v-card-text>
-                        <bingo-items :items="bingoItems"></bingo-items>
+                        <bingo-items :enablePlayBtn="true" :items="bingoItems"></bingo-items>
                     </v-card-text>
                 </v-card>
             </v-col>
@@ -17,11 +17,13 @@
             </v-col>
         </v-row>
 
-        <br>
-        <v-divider></v-divider>
-        <br>
+        <v-dialog max-width="300" :value="gameEnded">
+            <v-btn  dark color="red" @click="endGame">End Game</v-btn>
+        </v-dialog>
 
-        <v-btn class="float-right" dark color="red" @click="endGame">End Game</v-btn>
+        <v-divider class="mb-2"></v-divider>
+
+        <v-btn  dark color="red" @click="endGame">End Game</v-btn>
     </v-container>
 </template>
 
@@ -34,7 +36,7 @@
         name: "BingoAdmin",
         components: {BingoPlayers, BingoItems},
         computed: {
-            ...mapGetters(["bingo", "bingoItems", "bingoPlayers"])
+            ...mapGetters(["bingo", "bingoItems", "bingoPlayers", "gameEnded"])
         },
         mounted() {
             this.loadPlayers()

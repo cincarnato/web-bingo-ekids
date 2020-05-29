@@ -16,9 +16,13 @@ export default new Vuex.Store({
     state: {
         bingo: null,
         bingoPlayers: [],
-        player: null
+        player: null,
+        gameEnded: false
     },
     mutations: {
+        setGameEnded(state,val){
+          state.gameEnded = val
+        },
         setBingo(state, bingo) {
             state.bingo = bingo
         },
@@ -66,9 +70,17 @@ export default new Vuex.Store({
             BingoProvider.raffleItem(state.bingo.id)
                 .then(
                     response => {
-                        dispatch('play', response.data.raffleItem)
-                        commit('addBingoItem', response.data.raffleItem)
-                        dispatch('loadPlayers')
+                        if(response.data.raffleItem){
+                            dispatch('play', response.data.raffleItem)
+                            commit('addBingoItem', response.data.raffleItem)
+                            dispatch('loadPlayers')
+
+                        }else{
+                            commit("setGameEnded", false)
+                            commit("setGameEnded", true)
+                        }
+
+
                     }
                 )
                 .catch(
@@ -98,6 +110,9 @@ export default new Vuex.Store({
                 return state.player.bingo.name
             }
             return null
+        },
+        gameEnded(state){
+          return state.gameEnded
         },
         bingo(state) {
             return state.bingo

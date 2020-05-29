@@ -26,7 +26,7 @@
 
       <v-spacer></v-spacer>
       <v-toolbar-title v-if="bingoName" class="white--text ml-2">
-        Bingo Game: <b>{{bingoName}}</b>
+        Game: <b>{{bingoName}}</b>
       </v-toolbar-title>
 
     </v-app-bar>

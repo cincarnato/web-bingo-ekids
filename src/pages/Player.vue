@@ -1,7 +1,6 @@
 <template>
     <v-container>
-        <h2>Bingo Game: <b>{{player.bingo.name}}</b></h2>
-
+        <br>
         <template v-if="itemsReady">
             <v-row>
                 <v-col cols="12" sm="9">
@@ -14,11 +13,10 @@
 
         </template>
         <pick-card-items v-else></pick-card-items>
-        <br>
-        <v-divider></v-divider>
-        <br>
-        <v-btn class="" dark color="purple" @click="refreshBingo">Refresh Bingo</v-btn>
-        <v-btn class="float-right" dark color="red" @click="endGame">End Game</v-btn>
+        <v-divider class="mb-2"></v-divider>
+
+        <v-btn v-if="false" dark color="purple" @click="refreshBingo">Refresh Bingo</v-btn>
+        <v-btn dark color="red" @click="endGame">End Game</v-btn>
     </v-container>
 </template>
 

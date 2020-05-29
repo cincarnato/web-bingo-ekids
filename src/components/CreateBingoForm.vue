@@ -67,6 +67,7 @@
                     BingoProvider.createBingo(this.form)
                         .then(
                             response => {
+                                this.$store.commit('setGameEnded',false)
                                 this.$store.commit('setBingo',response.data.createBingo)
                                 this.$router.push({name:'bingo'});
                             }

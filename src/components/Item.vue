@@ -14,7 +14,7 @@
             item: {type: Object},
             hit: {type: Boolean, default: false},
             showText: {type: Boolean, default: true},
-            imgHeight: {type: String, default:"100"}
+            imgHeight: {type: String, default:"80"}
         },
         computed:{
             img(){
