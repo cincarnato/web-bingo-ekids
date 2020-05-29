@@ -34,6 +34,8 @@
                                 class="pa-3"
                                 hint="Ingresa el codigo de un bingo existente"
                                 :rules="[rules.required]"
+                                :error-messages="errors.code"
+                                @input="errors.code=null"
                         />
                     </v-col>
 
@@ -65,6 +67,9 @@
                 rules: {
                     required: value => !!value || 'Requerido'
                 },
+                errors: {
+                    code: null
+                }
             }
         },
         mounted() {
@@ -79,8 +84,13 @@
                     BingoProvider.joinBingo(this.form)
                         .then(
                             response => {
-                                this.$store.commit('setPlayer',response.data.joinBingo)
-                                this.$router.push({name:'player'});
+                                if(response.data.joinBingo){
+                                    this.$store.commit('setPlayer',response.data.joinBingo)
+                                    this.$router.push({name:'player'});
+                                }else{
+                                    this.errors.code = 'Codigo invalido'
+                                }
+
                             }
                         )
                         .catch(
