@@ -20,11 +20,14 @@
           <b >Bingo Kids</b>
         </v-toolbar-title>
 
+
       </div>
       </router-link>
 
       <v-spacer></v-spacer>
-
+      <v-toolbar-title v-if="bingoName" class="white--text ml-2">
+        Bingo Game: <b>{{bingoName}}</b>
+      </v-toolbar-title>
 
     </v-app-bar>
 
@@ -35,9 +38,12 @@
 </template>
 
 <script>
-
+  import {mapGetters} from "vuex"
 export default {
   name: 'App',
+  computed: {
+    ...mapGetters(["bingoName"])
+  },
 };
 </script>
 

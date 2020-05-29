@@ -1,12 +1,5 @@
 <template>
     <v-container>
-        <h2>Bingo Game</h2>
-        <h4>Your game code is: <b class="purple--text">{{bingo.code}}</b></h4>
-        <p>Share this code with the children to join your game</p>
-
-        <v-btn fab dark color="blue" @click="roll">Roll</v-btn>
-        <br>
-
         <v-row>
             <v-col cols="12" sm="4">
                 <v-card>
@@ -17,6 +10,8 @@
             </v-col>
 
             <v-col cols="12" sm="8">
+
+                <p><b>Game code</b>: <b class="purple--text">{{bingo.code}}</b> (Share this code with the children to join your game)</p>
                 <h3>Players</h3>
                 <bingo-players :players="bingoPlayers"></bingo-players>
             </v-col>
@@ -31,8 +26,7 @@
 </template>
 
 <script>
-    import BingoProvider from "../providers/BingoProvider";
-    import {mapGetters} from "vuex"
+    import {mapGetters, mapActions} from "vuex"
     import BingoItems from "../components/BingoItems";
     import BingoPlayers from "../components/BingoPlayers";
 
@@ -46,44 +40,14 @@
             this.loadPlayers()
         },
         methods: {
+            ...mapActions(['roll', 'loadPlayers']),
             endGame() {
                 if (confirm("Esta seguro de terminar el juego")) {
                     this.$store.commit("setBingo", null)
                     this.$router.push({name: 'home'})
                 }
             },
-            loadPlayers(){
-                BingoProvider.playersByBingo(this.$store.state.bingo.id)
-                    .then(response => {
-                        this.$store.commit('setBingoPlayers', response.data.playersByBingo)
-                    })
-                    .catch(
-                        err => {
-                            console.error(err)
-                        }
-                    )
-            },
-            play(item){
-                let snd = process.env.VUE_APP_APIHOST + item.snd
-                let audio = new Audio(snd);
-                audio.play();
-            },
-            roll() {
-                BingoProvider.raffleItem(this.$store.state.bingo.id)
-                    .then(
-                        response => {
-                            this.play(response.data.raffleItem)
-                            this.$store.commit('addBingoItem', response.data.raffleItem)
-                            this.loadPlayers()
-                        }
-                    )
-                    .catch(
-                        err => {
-                            console.error(err)
-                        }
-                    )
 
-            }
         }
     }
 </script>

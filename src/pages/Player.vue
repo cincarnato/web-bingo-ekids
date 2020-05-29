@@ -11,6 +11,7 @@
                     <bingo-items :items="playerBingoItems"></bingo-items>
                 </v-col>
             </v-row>
+
         </template>
         <pick-card-items v-else></pick-card-items>
         <br>
@@ -33,9 +34,8 @@
         components: {BingoItems, YourBingoCard, PickCardItems},
         computed: {
             ...mapGetters(["player", "playerBingoItems"]),
+
             itemsReady(){
-                console.log(this.player.bingo.cardQtyItems)
-                console.log(this.player.card.length)
                 if(this.player.bingo.cardQtyItems > this.player.card.length){
                     return false
                 }else{
@@ -56,7 +56,13 @@
             subscriptionBingo() {
                 BingoProvider.itemAdded(this.$store.state.player.bingo.id).subscribe(e => {
                     this.$store.commit('addPlayerBingoItem', e.data.itemAdded)
+                    this.play(e.data.itemAdded)
                 })
+            },
+            play(item){
+                let snd = process.env.VUE_APP_APIHOST + item.snd
+                let audio = new Audio(snd);
+                audio.play();
             },
             refreshBingo() {
                 BingoProvider.bingo(this.$store.state.player.bingo.id)

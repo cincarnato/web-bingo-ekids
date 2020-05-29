@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 
 Vue.use(Vuex)
 import createPersistedState from "vuex-persistedstate";
+import BingoProvider from "./providers/BingoProvider";
 
 
 export default new Vuex.Store({
@@ -55,8 +56,49 @@ export default new Vuex.Store({
             }
         }
     },
-    actions: {},
+    actions: {
+        play(_,item){
+            let snd = process.env.VUE_APP_APIHOST + item.snd
+            let audio = new Audio(snd);
+            audio.play();
+        },
+        roll({state, commit, dispatch}) {
+            BingoProvider.raffleItem(state.bingo.id)
+                .then(
+                    response => {
+                        dispatch('play', response.data.raffleItem)
+                        commit('addBingoItem', response.data.raffleItem)
+                        dispatch('loadPlayers')
+                    }
+                )
+                .catch(
+                    err => {
+                        console.error(err)
+                    }
+                )
+        },
+        loadPlayers({state, commit}){
+            BingoProvider.playersByBingo(state.bingo.id)
+                .then(response => {
+                    commit('setBingoPlayers', response.data.playersByBingo)
+                })
+                .catch(
+                    err => {
+                        console.error(err)
+                    }
+                )
+        },
+    },
     getters: {
+        bingoName(state){
+            if(state.bingo){
+                return state.bingo.name
+            }
+            if(state.player && state.player.bingo){
+                return state.player.bingo.name
+            }
+            return null
+        },
         bingo(state) {
             return state.bingo
         },
@@ -73,6 +115,10 @@ export default new Vuex.Store({
         playerBingoItems(state){
             let a = [...state.player.bingo.items, ...[]]
             return a.reverse()
+        },
+        playerCardLeft(state){
+            let itemsLeft = state.player.card.filter(item => !state.player.bingo.items.some(i => i.id == item.id))
+            return itemsLeft.length
         }
     }
 })

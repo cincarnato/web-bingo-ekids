@@ -1,5 +1,8 @@
 <template>
     <v-card   color="blue lighten-4" >
+        <v-btn large absolute top right fab dark color="indigo darken-4" @click="roll">
+            <v-icon>play_arrow</v-icon>
+        </v-btn>
         <v-card-title>Bingo Items</v-card-title>
         <v-card-subtitle>Items sorteados en el bingo</v-card-subtitle>
         <v-card-text class="overflow-y-auto" style="height: 380px"  >
@@ -15,11 +18,15 @@
 
 <script>
     import Item from "./Item";
+    import {mapActions} from "vuex";
     export default {
         name: "BingoItems",
         components: {Item},
         props: {
             items: Array
+        },
+        methods: {
+            ...mapActions(['roll']),
         }
     }
 </script>
